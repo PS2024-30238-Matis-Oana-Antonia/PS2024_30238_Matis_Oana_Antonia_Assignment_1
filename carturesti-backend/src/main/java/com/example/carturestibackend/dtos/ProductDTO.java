@@ -19,7 +19,9 @@ public class ProductDTO {
     private long id_product;
     private String name;
     private long price;
-    private Set<Category> category;
+    private Set<CategoryDTO> categories;
+    private Set<OrderDTO> orders;
+    private Set<ReviewDTO> reviews;
     private String description;
     private String author;
     private long stock;

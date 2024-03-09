@@ -17,8 +17,8 @@ import java.time.LocalDate;
 public class ReviewDTO {
 
     private Long id;
-    private User user;
-    private Product product;
+    private UserDTO user;
+    private ProductDTO product;
     private int rating;
     private String comment;
     private LocalDate createdAt;

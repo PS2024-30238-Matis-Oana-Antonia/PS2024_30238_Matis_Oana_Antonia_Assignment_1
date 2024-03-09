@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Set;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -18,5 +20,7 @@ public class UserDTO {
     private String email;
     private int age;
     private String role;
+    private Set<ReviewDTO> reviews;
+    private Set<OrderDTO> orders;
 
 }

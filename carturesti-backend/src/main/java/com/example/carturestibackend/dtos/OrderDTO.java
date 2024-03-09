@@ -17,5 +17,6 @@ public class OrderDTO {
     private long id_order;
     private long nbOfProducts;
     private long total_price;
-    private Set<Product> products;
+    private UserDTO user;
+    private Set<ProductDTO> products;
 }
