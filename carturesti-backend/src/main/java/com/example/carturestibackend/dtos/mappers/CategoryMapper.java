@@ -1,11 +1,9 @@
-package com.example.carturestibackend.dtos.builders;
+package com.example.carturestibackend.dtos.mappers;
 
 import com.example.carturestibackend.dtos.CategoryDTO;
 import com.example.carturestibackend.entities.Category;
 
-import java.util.stream.Collectors;
-
-public class CategoryBuilder {
+public class CategoryMapper {
 
     public static CategoryDTO toCategoryDTO(Category category) {
         return CategoryDTO.builder()

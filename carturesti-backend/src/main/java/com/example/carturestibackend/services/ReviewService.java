@@ -1,7 +1,7 @@
 package com.example.carturestibackend.services;
 
 import com.example.carturestibackend.dtos.ReviewDTO;
-import com.example.carturestibackend.dtos.builders.ReviewBuilder;
+import com.example.carturestibackend.dtos.mappers.ReviewMapper;
 import com.example.carturestibackend.entities.Review;
 import com.example.carturestibackend.repositories.ReviewRepository;
 import org.slf4j.Logger;
@@ -40,7 +40,7 @@ public class ReviewService {
     public List<ReviewDTO> findReviews() {
         List<Review> reviewList = reviewRepository.findAll();
         return reviewList.stream()
-                .map(ReviewBuilder::toReviewDTO)
+                .map(ReviewMapper::toReviewDTO)
                 .collect(Collectors.toList());
     }
 
@@ -57,7 +57,7 @@ public class ReviewService {
             LOGGER.error("Review with id {} was not found in db", id);
             throw new ResourceNotFoundException(Review.class.getSimpleName() + " with id: " + id);
         }
-        return ReviewBuilder.toReviewDTO(reviewOptional.get());
+        return ReviewMapper.toReviewDTO(reviewOptional.get());
     }
 
     /**
@@ -67,7 +67,7 @@ public class ReviewService {
      * @return The ID of the newly inserted review.
      */
     public long insert(ReviewDTO reviewDTO) {
-        Review review = ReviewBuilder.fromReviewDTO(reviewDTO);
+        Review review = ReviewMapper.fromReviewDTO(reviewDTO);
         review = reviewRepository.save(review);
         LOGGER.debug("Review with id {} was inserted in db", review.getId());
         return review.getId();
@@ -111,6 +111,6 @@ public class ReviewService {
         Review updatedReview = reviewRepository.save(existingReview);
         LOGGER.debug("Review with id {} was updated in db", updatedReview.getId());
 
-        return ReviewBuilder.toReviewDTO(updatedReview);
+        return ReviewMapper.toReviewDTO(updatedReview);
     }
 }

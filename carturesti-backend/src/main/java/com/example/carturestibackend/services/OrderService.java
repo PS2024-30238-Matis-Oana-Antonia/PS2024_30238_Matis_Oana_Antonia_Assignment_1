@@ -1,7 +1,7 @@
 package com.example.carturestibackend.services;
 
 import com.example.carturestibackend.dtos.OrderDTO;
-import com.example.carturestibackend.dtos.builders.OrderBuilder;
+import com.example.carturestibackend.dtos.mappers.OrderMapper;
 import com.example.carturestibackend.entities.Order;
 import com.example.carturestibackend.repositories.OrderRepository;
 import org.slf4j.Logger;
@@ -41,7 +41,7 @@ public class OrderService {
     public List<OrderDTO> findOrders() {
         List<Order> orderList = orderRepository.findAll();
         return orderList.stream()
-                .map(OrderBuilder::toOrderDTO)
+                .map(OrderMapper::toOrderDTO)
                 .collect(Collectors.toList());
     }
 
@@ -58,7 +58,7 @@ public class OrderService {
             LOGGER.error("Order with id {} was not found in db", id);
             throw new ResourceNotFoundException(Order.class.getSimpleName() + " with id: " + id);
         }
-        return OrderBuilder.toOrderDTO(orderOptional.get());
+        return OrderMapper.toOrderDTO(orderOptional.get());
     }
 
     /**
@@ -68,7 +68,7 @@ public class OrderService {
      * @return The ID of the newly inserted order.
      */
     public long insert(OrderDTO orderDTO) {
-        Order order = OrderBuilder.fromOrderDTO(orderDTO);
+        Order order = OrderMapper.fromOrderDTO(orderDTO);
         order = orderRepository.save(order);
         LOGGER.debug("Order with id {} was inserted in db", order.getId_order());
         return order.getId_order();
@@ -111,6 +111,6 @@ public class OrderService {
         Order updatedOrder = orderRepository.save(existingOrder);
         LOGGER.debug("Order with id {} was updated in db", updatedOrder.getId_order());
 
-        return OrderBuilder.toOrderDTO(updatedOrder);
+        return OrderMapper.toOrderDTO(updatedOrder);
     }
 }

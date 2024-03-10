@@ -1,7 +1,7 @@
 package com.example.carturestibackend.services;
 
 import com.example.carturestibackend.dtos.UserDTO;
-import com.example.carturestibackend.dtos.builders.UserBuilder;
+import com.example.carturestibackend.dtos.mappers.UserMapper;
 import com.example.carturestibackend.entities.User;
 import com.example.carturestibackend.repositories.UserRepository;
 import org.slf4j.LoggerFactory;
@@ -41,7 +41,7 @@ public class UserService {
     public List<UserDTO> findUsers() {
         List<User> userList = userRepository.findAll();
         return userList.stream()
-                .map(UserBuilder::toUserDTO)
+                .map(UserMapper::toUserDTO)
                 .collect(Collectors.toList());
     }
 
@@ -58,7 +58,7 @@ public class UserService {
             LOGGER.error("User with id {} was not found in db", id_user);
             throw new ResourceNotFoundException(User.class.getSimpleName() + " with id: " + id_user);
         }
-        return UserBuilder.toUserDTO(userOptional.get());
+        return UserMapper.toUserDTO(userOptional.get());
     }
 
     /**
@@ -74,7 +74,7 @@ public class UserService {
             LOGGER.error("User with name {} was not found in db", name);
             throw new ResourceNotFoundException(User.class.getSimpleName() + " with name: " + name);
         }
-        return UserBuilder.toUserDTO(userOptional.get());
+        return UserMapper.toUserDTO(userOptional.get());
     }
 
     /**
@@ -90,7 +90,7 @@ public class UserService {
             LOGGER.error("User with email {} was not found in db", email);
             throw new ResourceNotFoundException(User.class.getSimpleName() + " with email: " + email);
         }
-        return UserBuilder.toUserDTO(userOptional.get());
+        return UserMapper.toUserDTO(userOptional.get());
     }
 
     /**
@@ -100,7 +100,7 @@ public class UserService {
      * @return The ID of the newly inserted user.
      */
     public long insert(UserDTO userDTO) {
-        User user = UserBuilder.fromUserDTO(userDTO);
+        User user = UserMapper.fromUserDTO(userDTO);
         user = userRepository.save(user);
         LOGGER.debug("User with id {} was inserted in db", user.getId_user());
         return user.getId_user();
@@ -146,7 +146,7 @@ public class UserService {
         User updatedUser = userRepository.save(existingUser);
         LOGGER.debug("User with id {} was updated in db", updatedUser.getId_user());
 
-        return UserBuilder.toUserDTO(updatedUser);
+        return UserMapper.toUserDTO(updatedUser);
     }
 }
 

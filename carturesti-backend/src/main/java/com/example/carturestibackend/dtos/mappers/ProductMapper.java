@@ -1,14 +1,11 @@
-package com.example.carturestibackend.dtos.builders;
+package com.example.carturestibackend.dtos.mappers;
 
-import com.example.carturestibackend.dtos.CategoryDTO;
-import com.example.carturestibackend.dtos.OrderDTO;
 import com.example.carturestibackend.dtos.ProductDTO;
-import com.example.carturestibackend.dtos.ReviewDTO;
 import com.example.carturestibackend.entities.Product;
 
-public class ProductBuilder {
+public class ProductMapper {
 
-    private ProductBuilder() {
+    private ProductMapper() {
     }
 
     public static ProductDTO toProductDTO(Product product) {

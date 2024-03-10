@@ -1,7 +1,7 @@
 package com.example.carturestibackend.services;
 
 import com.example.carturestibackend.dtos.ProductDTO;
-import com.example.carturestibackend.dtos.builders.ProductBuilder;
+import com.example.carturestibackend.dtos.mappers.ProductMapper;
 import com.example.carturestibackend.entities.Product;
 import com.example.carturestibackend.repositories.ProductRepository;
 import org.slf4j.Logger;
@@ -41,7 +41,7 @@ public class ProductService {
     public List<ProductDTO> findProducts() {
         List<Product> productList = productRepository.findAll();
         return productList.stream()
-                .map(ProductBuilder::toProductDTO)
+                .map(ProductMapper::toProductDTO)
                 .collect(Collectors.toList());
     }
 
@@ -58,7 +58,7 @@ public class ProductService {
             LOGGER.error("Product with id {} was not found in db", id_product);
             throw new ResourceNotFoundException(Product.class.getSimpleName() + " with id: " + id_product);
         }
-        return ProductBuilder.toProductDTO(productOptional.get());
+        return ProductMapper.toProductDTO(productOptional.get());
     }
 
     /**
@@ -68,7 +68,7 @@ public class ProductService {
      * @return The ID of the newly inserted product.
      */
     public long insert(ProductDTO productDTO) {
-        Product product = ProductBuilder.fromProductDTO(productDTO);
+        Product product = ProductMapper.fromProductDTO(productDTO);
         product = productRepository.save(product);
         LOGGER.debug("Product with id {} was inserted in db", product.getId_product());
         return product.getId_product();
@@ -114,6 +114,6 @@ public class ProductService {
         Product updatedProduct = productRepository.save(existingProduct);
         LOGGER.debug("Product with id {} was updated in db", updatedProduct.getId_product());
 
-        return ProductBuilder.toProductDTO(updatedProduct);
+        return ProductMapper.toProductDTO(updatedProduct);
     }
 }

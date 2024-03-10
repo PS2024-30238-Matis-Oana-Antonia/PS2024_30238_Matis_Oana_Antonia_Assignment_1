@@ -1,7 +1,7 @@
 package com.example.carturestibackend.services;
 
 import com.example.carturestibackend.dtos.CategoryDTO;
-import com.example.carturestibackend.dtos.builders.CategoryBuilder;
+import com.example.carturestibackend.dtos.mappers.CategoryMapper;
 import com.example.carturestibackend.entities.Category;
 import com.example.carturestibackend.repositories.CategoryRepository;
 import org.slf4j.Logger;
@@ -40,7 +40,7 @@ public class CategoryService {
     public List<CategoryDTO> findCategories() {
         List<Category> categoryList = categoryRepository.findAll();
         return categoryList.stream()
-                .map(CategoryBuilder::toCategoryDTO)
+                .map(CategoryMapper::toCategoryDTO)
                 .collect(Collectors.toList());
     }
 
@@ -57,7 +57,7 @@ public class CategoryService {
             LOGGER.error("Category with id {} was not found in db", id_category);
             throw new ResourceNotFoundException(Category.class.getSimpleName() + " with id: " + id_category);
         }
-        return CategoryBuilder.toCategoryDTO(categoryOptional.get());
+        return CategoryMapper.toCategoryDTO(categoryOptional.get());
     }
 
     /**
@@ -67,7 +67,7 @@ public class CategoryService {
      * @return The ID of the newly inserted category.
      */
     public long insert(CategoryDTO categoryDTO) {
-        Category category = CategoryBuilder.fromCategoryDTO(categoryDTO);
+        Category category = CategoryMapper.fromCategoryDTO(categoryDTO);
         category = categoryRepository.save(category);
         LOGGER.debug("Category with id {} was inserted in db", category.getId_category());
         return category.getId_category();
@@ -110,6 +110,6 @@ public class CategoryService {
         Category updatedCategory = categoryRepository.save(existingCategory);
         LOGGER.debug("Category with id {} was updated in db", updatedCategory.getId_category());
 
-        return CategoryBuilder.toCategoryDTO(updatedCategory);
+        return CategoryMapper.toCategoryDTO(updatedCategory);
     }
 }
