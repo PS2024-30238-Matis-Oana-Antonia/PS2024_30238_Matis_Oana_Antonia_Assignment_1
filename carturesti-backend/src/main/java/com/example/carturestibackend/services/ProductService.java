@@ -14,16 +14,30 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+/**
+ * Service class to handle business logic related to products.
+ */
 @Service
 public class ProductService {
+
     private static final Logger LOGGER = LoggerFactory.getLogger(ProductService.class);
     private final ProductRepository productRepository;
 
+    /**
+     * Constructs a new ProductService with the specified ProductRepository.
+     *
+     * @param productRepository The ProductRepository used to interact with product data in the database.
+     */
     @Autowired
     public ProductService(ProductRepository productRepository) {
         this.productRepository = productRepository;
     }
 
+    /**
+     * Retrieves all products from the database.
+     *
+     * @return A list of ProductDTO objects representing the products.
+     */
     public List<ProductDTO> findProducts() {
         List<Product> productList = productRepository.findAll();
         return productList.stream()
@@ -31,6 +45,13 @@ public class ProductService {
                 .collect(Collectors.toList());
     }
 
+    /**
+     * Retrieves a product by its ID.
+     *
+     * @param id_product The ID of the product to retrieve.
+     * @return The ProductDTO object representing the retrieved product.
+     * @throws ResourceNotFoundException if the product with the specified ID is not found.
+     */
     public ProductDTO findProductById(long id_product) {
         Optional<Product> productOptional = productRepository.findById(id_product);
         if (!productOptional.isPresent()) {
@@ -40,6 +61,12 @@ public class ProductService {
         return ProductBuilder.toProductDTO(productOptional.get());
     }
 
+    /**
+     * Inserts a new product into the database.
+     *
+     * @param productDTO The ProductDTO object representing the product to insert.
+     * @return The ID of the newly inserted product.
+     */
     public long insert(ProductDTO productDTO) {
         Product product = ProductBuilder.fromProductDTO(productDTO);
         product = productRepository.save(product);
@@ -47,6 +74,12 @@ public class ProductService {
         return product.getId_product();
     }
 
+    /**
+     * Deletes a product from the database by its ID.
+     *
+     * @param id_product The ID of the product to delete.
+     * @throws ResourceNotFoundException if the product with the specified ID is not found.
+     */
     public void deleteProductById(long id_product) {
         Optional<Product> productOptional = productRepository.findById(id_product);
         if (productOptional.isPresent()) {
@@ -56,6 +89,14 @@ public class ProductService {
         }
     }
 
+    /**
+     * Updates an existing product in the database.
+     *
+     * @param id_product The ID of the product to update.
+     * @param productDTO The updated ProductDTO object representing the new state of the product.
+     * @return The updated ProductDTO object.
+     * @throws ResourceNotFoundException if the product with the specified ID is not found.
+     */
     public ProductDTO updateProduct(long id_product, ProductDTO productDTO) {
         Optional<Product> productOptional = productRepository.findById(id_product);
         if (!productOptional.isPresent()) {

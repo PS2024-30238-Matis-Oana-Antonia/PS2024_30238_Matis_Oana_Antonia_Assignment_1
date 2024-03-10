@@ -1,0 +1,7 @@
+com.example.carturestibackend
+com.example.carturestibackend.controllers
+com.example.carturestibackend.dtos
+com.example.carturestibackend.dtos.builders
+com.example.carturestibackend.entities
+com.example.carturestibackend.repositories
+com.example.carturestibackend.services

@@ -14,16 +14,30 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+/**
+ * Service class to handle business logic related to orders.
+ */
 @Service
 public class OrderService {
+
     private static final Logger LOGGER = LoggerFactory.getLogger(OrderService.class);
     private final OrderRepository orderRepository;
 
+    /**
+     * Constructs a new OrderService with the specified OrderRepository.
+     *
+     * @param orderRepository The OrderRepository used to interact with order data in the database.
+     */
     @Autowired
     public OrderService(OrderRepository orderRepository) {
         this.orderRepository = orderRepository;
     }
 
+    /**
+     * Retrieves all orders from the database.
+     *
+     * @return A list of OrderDTO objects representing the orders.
+     */
     public List<OrderDTO> findOrders() {
         List<Order> orderList = orderRepository.findAll();
         return orderList.stream()
@@ -31,6 +45,13 @@ public class OrderService {
                 .collect(Collectors.toList());
     }
 
+    /**
+     * Retrieves an order by its ID.
+     *
+     * @param id The ID of the order to retrieve.
+     * @return The OrderDTO object representing the retrieved order.
+     * @throws ResourceNotFoundException if the order with the specified ID is not found.
+     */
     public OrderDTO findOrderById(long id) {
         Optional<Order> orderOptional = orderRepository.findById(id);
         if (!orderOptional.isPresent()) {
@@ -40,6 +61,12 @@ public class OrderService {
         return OrderBuilder.toOrderDTO(orderOptional.get());
     }
 
+    /**
+     * Inserts a new order into the database.
+     *
+     * @param orderDTO The OrderDTO object representing the order to insert.
+     * @return The ID of the newly inserted order.
+     */
     public long insert(OrderDTO orderDTO) {
         Order order = OrderBuilder.fromOrderDTO(orderDTO);
         order = orderRepository.save(order);
@@ -47,6 +74,12 @@ public class OrderService {
         return order.getId_order();
     }
 
+    /**
+     * Deletes an order from the database by its ID.
+     *
+     * @param id The ID of the order to delete.
+     * @throws ResourceNotFoundException if the order with the specified ID is not found.
+     */
     public void deleteOrderById(long id) {
         Optional<Order> orderOptional = orderRepository.findById(id);
         if (orderOptional.isPresent()) {
@@ -56,6 +89,14 @@ public class OrderService {
         }
     }
 
+    /**
+     * Updates an existing order in the database.
+     *
+     * @param id The ID of the order to update.
+     * @param orderDTO The updated OrderDTO object representing the new state of the order.
+     * @return The updated OrderDTO object.
+     * @throws ResourceNotFoundException if the order with the specified ID is not found.
+     */
     public OrderDTO updateOrder(long id, OrderDTO orderDTO) {
         Optional<Order> orderOptional = orderRepository.findById(id);
         if (!orderOptional.isPresent()) {

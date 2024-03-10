@@ -14,16 +14,29 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+/**
+ * Service class to handle business logic related to reviews.
+ */
 @Service
 public class ReviewService {
     private static final Logger LOGGER = LoggerFactory.getLogger(ReviewService.class);
     private final ReviewRepository reviewRepository;
 
+    /**
+     * Constructs a new ReviewService with the specified ReviewRepository.
+     *
+     * @param reviewRepository The ReviewRepository used to interact with review data in the database.
+     */
     @Autowired
     public ReviewService(ReviewRepository reviewRepository) {
         this.reviewRepository = reviewRepository;
     }
 
+    /**
+     * Retrieves all reviews from the database.
+     *
+     * @return A list of ReviewDTO objects representing the reviews.
+     */
     public List<ReviewDTO> findReviews() {
         List<Review> reviewList = reviewRepository.findAll();
         return reviewList.stream()
@@ -31,6 +44,13 @@ public class ReviewService {
                 .collect(Collectors.toList());
     }
 
+    /**
+     * Retrieves a review by its ID.
+     *
+     * @param id The ID of the review to retrieve.
+     * @return The ReviewDTO object representing the retrieved review.
+     * @throws ResourceNotFoundException if the review with the specified ID is not found.
+     */
     public ReviewDTO findReviewById(long id) {
         Optional<Review> reviewOptional = reviewRepository.findById(id);
         if (!reviewOptional.isPresent()) {
@@ -40,6 +60,12 @@ public class ReviewService {
         return ReviewBuilder.toReviewDTO(reviewOptional.get());
     }
 
+    /**
+     * Inserts a new review into the database.
+     *
+     * @param reviewDTO The ReviewDTO object representing the review to insert.
+     * @return The ID of the newly inserted review.
+     */
     public long insert(ReviewDTO reviewDTO) {
         Review review = ReviewBuilder.fromReviewDTO(reviewDTO);
         review = reviewRepository.save(review);
@@ -47,6 +73,12 @@ public class ReviewService {
         return review.getId();
     }
 
+    /**
+     * Deletes a review from the database by its ID.
+     *
+     * @param id The ID of the review to delete.
+     * @throws ResourceNotFoundException if the review with the specified ID is not found.
+     */
     public void deleteReviewById(long id) {
         Optional<Review> reviewOptional = reviewRepository.findById(id);
         if (reviewOptional.isPresent()) {
@@ -56,6 +88,14 @@ public class ReviewService {
         }
     }
 
+    /**
+     * Updates an existing review in the database.
+     *
+     * @param id        The ID of the review to update.
+     * @param reviewDTO The updated ReviewDTO object representing the new state of the review.
+     * @return The updated ReviewDTO object.
+     * @throws ResourceNotFoundException if the review with the specified ID is not found.
+     */
     public ReviewDTO updateReview(long id, ReviewDTO reviewDTO) {
         Optional<Review> reviewOptional = reviewRepository.findById(id);
         if (!reviewOptional.isPresent()) {
