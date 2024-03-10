@@ -59,7 +59,7 @@ public class UserService {
     }
 
     public long insert(UserDTO userDTO) {
-        User user = UserBuilder.fromUserDto(userDTO);
+        User user = UserBuilder.fromUserDTO(userDTO);
         user = userRepository.save(user);
         LOGGER.debug("Person with id {} was inserted in db", user.getId_user());
         return user.getId_user();

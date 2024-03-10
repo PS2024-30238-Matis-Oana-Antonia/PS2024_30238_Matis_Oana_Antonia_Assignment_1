@@ -2,24 +2,25 @@ package com.example.carturestibackend.dtos;
 
 
 import java.util.Set;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+
+import com.example.carturestibackend.entities.Category;
+import com.example.carturestibackend.entities.Order;
+import com.example.carturestibackend.entities.Review;
+import lombok.*;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-
+@Builder
 public class ProductDTO {
 
     private long id_product;
     private String name;
     private long price;
-    private Set<CategoryDTO> categories;
-    private Set<OrderDTO> orders;
-    private Set<ReviewDTO> reviews;
+    private Set<Category> categories;
+    private Set<Order> orders;
+    private Set<Review> reviews;
     private String description;
     private String author;
     private long stock;

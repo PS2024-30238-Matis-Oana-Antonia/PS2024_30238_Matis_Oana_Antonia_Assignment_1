@@ -12,6 +12,7 @@ import java.util.Set;
 @Table(name="orderdb")
 @Getter
 @Setter
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class Order {
@@ -37,6 +38,7 @@ public class Order {
             inverseJoinColumns = @JoinColumn(name = "id_product")
     )
     private Set<Product> products;
+
 
 }
 

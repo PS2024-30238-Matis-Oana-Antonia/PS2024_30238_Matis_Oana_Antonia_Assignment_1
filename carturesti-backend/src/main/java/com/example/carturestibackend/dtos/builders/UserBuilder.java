@@ -1,10 +1,14 @@
 package com.example.carturestibackend.dtos.builders;
 
+import com.example.carturestibackend.dtos.OrderDTO;
+import com.example.carturestibackend.dtos.ReviewDTO;
 import com.example.carturestibackend.dtos.UserDTO;
 import com.example.carturestibackend.entities.User;
 
+import java.util.Set;
 
-    public class UserBuilder {
+
+public class UserBuilder {
 
         private UserBuilder() {
         }
@@ -20,7 +24,7 @@ import com.example.carturestibackend.entities.User;
                     .build();
         }
 
-        public static User fromUserDto(UserDTO userDto) {
+        public static User fromUserDTO(UserDTO userDto) {
             return User.builder()
                     .name(userDto.getName())
                     .address(userDto.getAddress())
@@ -28,6 +32,16 @@ import com.example.carturestibackend.entities.User;
                     .age(userDto.getAge())
                     .role(userDto.getRole())
                     .build();
+        }
+
+        public static UserDTO withReviews(UserDTO userDTO, Set<ReviewDTO> reviews) {
+            userDTO.setReviews(reviews);
+            return userDTO;
+        }
+
+        public static UserDTO withOrders(UserDTO userDTO, Set<OrderDTO> orders) {
+            userDTO.setOrders(orders);
+            return userDTO;
         }
     }
 
