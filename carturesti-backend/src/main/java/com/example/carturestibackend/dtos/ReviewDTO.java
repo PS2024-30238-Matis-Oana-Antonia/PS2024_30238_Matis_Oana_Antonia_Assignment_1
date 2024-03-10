@@ -1,8 +1,5 @@
 package com.example.carturestibackend.dtos;
 
-import com.example.carturestibackend.entities.Product;
-import com.example.carturestibackend.entities.User;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

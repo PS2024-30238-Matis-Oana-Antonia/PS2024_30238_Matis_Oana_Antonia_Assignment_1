@@ -1,9 +1,6 @@
 package com.example.carturestibackend.dtos;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.Set;
 
@@ -11,7 +8,7 @@ import java.util.Set;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-
+@Builder
 public class UserDTO {
 
     private long id_user;
@@ -22,5 +19,6 @@ public class UserDTO {
     private String role;
     private Set<ReviewDTO> reviews;
     private Set<OrderDTO> orders;
+
 
 }

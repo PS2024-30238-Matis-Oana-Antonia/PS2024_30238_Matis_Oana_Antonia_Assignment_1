@@ -1,5 +1,4 @@
 package com.example.carturestibackend.dtos;
-import com.example.carturestibackend.entities.Product;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

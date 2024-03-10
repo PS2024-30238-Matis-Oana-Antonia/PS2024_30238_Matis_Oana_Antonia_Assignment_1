@@ -1,7 +1,5 @@
 package com.example.carturestibackend.dtos;
 
-import com.example.carturestibackend.entities.Category;
-import jakarta.persistence.*;
 
 import java.util.Set;
 import lombok.AllArgsConstructor;

@@ -41,9 +41,25 @@ public class UserService {
         }
         return UserBuilder.toUserDTO(userOptional.get());
     }
+    public UserDTO findUserByName(String name) {
+        Optional<User> userOptional = Optional.ofNullable(userRepository.findByName(name));
+        if (!userOptional.isPresent()) {
+            LOGGER.error("User with name {} was not found in db", name);
+            throw new ResourceNotFoundException(User.class.getSimpleName() + " with id: " + name);
+        }
+        return UserBuilder.toUserDTO(userOptional.get());
+    }
+    public UserDTO findUserByEmail(String email) {
+        Optional<User> userOptional = Optional.ofNullable(userRepository.findByEmail(email));
+        if (!userOptional.isPresent()) {
+            LOGGER.error("User with email {} was not found in db", email);
+            throw new ResourceNotFoundException(User.class.getSimpleName() + " with id: " + email);
+        }
+        return UserBuilder.toUserDTO(userOptional.get());
+    }
 
     public long insert(UserDTO userDTO) {
-        User user = UserBuilder.toEntity(userDTO);
+        User user = UserBuilder.fromUserDto(userDTO);
         user = userRepository.save(user);
         LOGGER.debug("Person with id {} was inserted in db", user.getId_user());
         return user.getId_user();

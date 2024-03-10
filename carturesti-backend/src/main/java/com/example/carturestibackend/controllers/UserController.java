@@ -29,7 +29,7 @@ public class UserController
     }
 
     @PostMapping()
-    public ResponseEntity<Long> insertProsumer(@Valid @RequestBody UserDTO userDTO) {
+    public ResponseEntity<Long> insertUser(@Valid @RequestBody UserDTO userDTO) {
         long userID = userService.insert(userDTO);
         return new ResponseEntity<>(userID, HttpStatus.CREATED);
     }
@@ -37,6 +37,17 @@ public class UserController
     @GetMapping(value = "/{id_user}")
     public ResponseEntity<UserDTO> getUser(@PathVariable("id_user") long userID) {
         UserDTO dto = userService.findUserById(userID);
+        return new ResponseEntity<>(dto, HttpStatus.OK);
+    }
+    @GetMapping("/name/{name}")
+    public ResponseEntity<UserDTO> getUserByName(@PathVariable("name") String name) {
+        UserDTO dto = userService.findUserByName(name);
+        return new ResponseEntity<>(dto, HttpStatus.OK);
+    }
+
+    @GetMapping("/email/{email}")
+    public ResponseEntity<UserDTO> getUserByEmail(@PathVariable("email") String email) {
+        UserDTO dto = userService.findUserByEmail(email);
         return new ResponseEntity<>(dto, HttpStatus.OK);
     }
 
