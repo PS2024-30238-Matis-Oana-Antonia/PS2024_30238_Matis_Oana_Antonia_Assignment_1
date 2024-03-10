@@ -3,6 +3,7 @@ package com.example.carturestibackend.entities;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -26,6 +27,6 @@ public class Category {
     private String description;
 
     @ManyToMany(mappedBy = "categories")
-    private Set<Product> products;
+    private List<Product> products;
 
 }

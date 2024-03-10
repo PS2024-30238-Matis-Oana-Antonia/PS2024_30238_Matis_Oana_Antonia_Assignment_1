@@ -3,6 +3,7 @@ package com.example.carturestibackend.entities;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -24,19 +25,19 @@ public class Product {
     @Column(name = "price", nullable = false)
     private long price;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany
     @JoinTable(
             name = "product_category",
             joinColumns = @JoinColumn(name = "product_id"),
             inverseJoinColumns = @JoinColumn(name = "category_id")
     )
-    private Set<Category> categories;
+    private List<Category> categories;
 
     @ManyToMany(mappedBy = "products")
-    private Set<Order> orders;
+    private List<Order> orders;
 
-    @OneToMany(mappedBy = "product")
-    private Set<Review> reviews;
+    @OneToMany(mappedBy = "product", fetch = FetchType.EAGER)
+    private List<Review> reviews;
 
     @Column(name = "description", nullable = false)
     private String description;

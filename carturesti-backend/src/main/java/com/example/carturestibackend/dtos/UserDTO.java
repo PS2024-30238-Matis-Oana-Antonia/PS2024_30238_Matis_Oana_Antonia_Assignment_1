@@ -1,7 +1,10 @@
 package com.example.carturestibackend.dtos;
 
+import com.example.carturestibackend.entities.Order;
+import com.example.carturestibackend.entities.Review;
 import lombok.*;
 
+import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -17,8 +20,7 @@ public class UserDTO {
     private String email;
     private int age;
     private String role;
-    private Set<ReviewDTO> reviews;
-    private Set<OrderDTO> orders;
-
+    private List<ReviewDTO> reviews;
+    private List<OrderDTO> orders;
 
 }

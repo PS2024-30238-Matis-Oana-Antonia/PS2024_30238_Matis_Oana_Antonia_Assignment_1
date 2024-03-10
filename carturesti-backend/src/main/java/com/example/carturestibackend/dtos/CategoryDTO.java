@@ -1,9 +1,8 @@
 package com.example.carturestibackend.dtos;
 
-import com.example.carturestibackend.entities.Product;
 import lombok.*;
 
-import java.util.Set;
+import java.util.List;
 
 @Getter
 @Setter
@@ -15,6 +14,6 @@ public class CategoryDTO {
     private long id_category;
     private String name;
     private String description;
-    private Set<Product> products;
+    private List<ProductDTO> products;
 
 }

@@ -2,6 +2,7 @@ package com.example.carturestibackend.dtos;
 
 import lombok.*;
 
+import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -15,5 +16,5 @@ public class OrderDTO {
     private long nbOfProducts;
     private long total_price;
     private UserDTO user;
-    private Set<ProductDTO> products;
+    private List<ProductDTO> products;
 }

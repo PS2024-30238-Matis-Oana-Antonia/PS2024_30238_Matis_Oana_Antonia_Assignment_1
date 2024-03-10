@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -34,17 +35,11 @@ public class User {
     @Column(name = "role", nullable = false)
     private String role;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private Set<Review> reviews;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<Review> reviews;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private Set<Order> orders;
-    public User(String name, String address, String email, int age, String role) {
-        this.name = name;
-        this.address = address;
-        this.email = email;
-        this.age = age;
-        this.role = role;
-    }
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<Order> orders;
+
 
 }

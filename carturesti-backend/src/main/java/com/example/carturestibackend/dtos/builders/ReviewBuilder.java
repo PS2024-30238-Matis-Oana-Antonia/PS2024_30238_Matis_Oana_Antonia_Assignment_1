@@ -3,9 +3,9 @@ package com.example.carturestibackend.dtos.builders;
 import com.example.carturestibackend.dtos.ProductDTO;
 import com.example.carturestibackend.dtos.ReviewDTO;
 import com.example.carturestibackend.dtos.UserDTO;
+import com.example.carturestibackend.entities.Product;
 import com.example.carturestibackend.entities.Review;
-
-import java.util.Set;
+import com.example.carturestibackend.entities.User;
 
 public class ReviewBuilder {
 
@@ -31,15 +31,5 @@ public class ReviewBuilder {
                 .comment(reviewDTO.getComment())
                 .createdAt(reviewDTO.getCreatedAt())
                 .build();
-    }
-
-    public static ReviewDTO withUser(ReviewDTO reviewDTO, UserDTO userDTO) {
-        reviewDTO.setUser(userDTO);
-        return reviewDTO;
-    }
-
-    public static ReviewDTO withProduct(ReviewDTO reviewDTO, ProductDTO productDTO) {
-        reviewDTO.setProduct(productDTO);
-        return reviewDTO;
     }
 }

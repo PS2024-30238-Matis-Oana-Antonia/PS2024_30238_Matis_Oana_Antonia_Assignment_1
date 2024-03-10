@@ -8,6 +8,7 @@ import com.example.carturestibackend.entities.Product;
 import com.example.carturestibackend.entities.User;
 
 import java.util.Collections;
+import java.util.List;
 import java.util.Set;
 
 public class OrderBuilder {
@@ -18,8 +19,6 @@ public class OrderBuilder {
                 .id_order(order.getId_order())
                 .nbOfProducts(order.getNbOfProducts())
                 .total_price(order.getTotal_price())
-                .user(UserBuilder.toUserDTO(order.getUser()))
-                .products(Collections.singleton(ProductBuilder.toProductDTO((Product) order.getProducts())))
                 .build();
     }
 
@@ -27,8 +26,6 @@ public class OrderBuilder {
         return Order.builder()
                 .nbOfProducts(orderDTO.getNbOfProducts())
                 .total_price(orderDTO.getTotal_price())
-                .user(UserBuilder.fromUserDTO(orderDTO.getUser()))
-                .products(Collections.singleton(ProductBuilder.fromProductDTO((ProductDTO) orderDTO.getProducts())))
                 .build();
     }
 
