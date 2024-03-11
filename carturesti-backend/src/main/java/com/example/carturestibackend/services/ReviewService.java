@@ -2,15 +2,21 @@ package com.example.carturestibackend.services;
 
 import com.example.carturestibackend.dtos.ReviewDTO;
 import com.example.carturestibackend.dtos.mappers.ReviewMapper;
+import com.example.carturestibackend.entities.Product;
 import com.example.carturestibackend.entities.Review;
+import com.example.carturestibackend.entities.User;
 import com.example.carturestibackend.repositories.ReviewRepository;
+import com.example.carturestibackend.repositories.ProductRepository;
+import com.example.carturestibackend.repositories.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -21,15 +27,20 @@ import java.util.stream.Collectors;
 public class ReviewService {
     private static final Logger LOGGER = LoggerFactory.getLogger(ReviewService.class);
     private final ReviewRepository reviewRepository;
-
+    private final UserRepository userRepository;
+    private final ProductRepository productRepository;
     /**
      * Constructs a new ReviewService with the specified ReviewRepository.
      *
-     * @param reviewRepository The ReviewRepository used to interact with review data in the database.
+     * @param reviewRepository  The ReviewRepository used to interact with review data in the database.
+     * @param userRepository
+     * @param productRepository
      */
     @Autowired
-    public ReviewService(ReviewRepository reviewRepository) {
+    public ReviewService(ReviewRepository reviewRepository, UserRepository userRepository, ProductRepository productRepository) {
         this.reviewRepository = reviewRepository;
+        this.userRepository = userRepository;
+        this.productRepository = productRepository;
     }
 
     /**
@@ -73,6 +84,7 @@ public class ReviewService {
         return review.getId();
     }
 
+
     /**
      * Deletes a review from the database by its ID.
      *
@@ -106,7 +118,6 @@ public class ReviewService {
         Review existingReview = reviewOptional.get();
         existingReview.setRating(reviewDTO.getRating());
         existingReview.setComment(reviewDTO.getComment());
-        existingReview.setCreatedAt(reviewDTO.getCreatedAt());
 
         Review updatedReview = reviewRepository.save(existingReview);
         LOGGER.debug("Review with id {} was updated in db", updatedReview.getId());

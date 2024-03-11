@@ -2,7 +2,9 @@ package com.example.carturestibackend.services;
 
 import com.example.carturestibackend.dtos.UserDTO;
 import com.example.carturestibackend.dtos.mappers.UserMapper;
+import com.example.carturestibackend.entities.Order;
 import com.example.carturestibackend.entities.User;
+import com.example.carturestibackend.repositories.OrderRepository;
 import com.example.carturestibackend.repositories.UserRepository;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,15 +24,18 @@ import java.util.stream.Collectors;
 public class UserService {
     private static final Logger LOGGER = LoggerFactory.getLogger(UserService.class);
     private final UserRepository userRepository;
+    private final OrderRepository orderRepository;
 
     /**
      * Constructs a new UserService with the specified UserRepository.
      *
-     * @param userRepository The UserRepository used to interact with user data in the database.
+     * @param userRepository  The UserRepository used to interact with user data in the database.
+     * @param orderRepository
      */
     @Autowired
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository, OrderRepository orderRepository) {
         this.userRepository = userRepository;
+        this.orderRepository = orderRepository;
     }
 
     /**
@@ -105,6 +110,7 @@ public class UserService {
         LOGGER.debug("User with id {} was inserted in db", user.getId_user());
         return user.getId_user();
     }
+
 
     /**
      * Deletes a user from the database by their ID.

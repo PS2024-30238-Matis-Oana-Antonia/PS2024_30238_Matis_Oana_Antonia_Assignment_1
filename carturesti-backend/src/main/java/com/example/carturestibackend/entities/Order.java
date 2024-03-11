@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -15,30 +16,30 @@ import java.util.Set;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Order {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id_order;
+    public class Order {
 
-    @Column(name = "quantity", nullable = false)
-    private long nbOfProducts;
+        @Id
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
+        private long id_order;
 
-    @Column(name = "total_price", nullable = false)
-    private long total_price;
+        @Column(name = "quantity", nullable = false)
+        private long nbOfProducts;
 
-    @ManyToOne
-    @JoinColumn(name = "id_user", nullable = false)
-    private User user;
+        @Column(name = "total_price", nullable = false)
+        private long total_price;
 
-    @ManyToMany
-    @JoinTable(
-            name = "order_product",
-            joinColumns = @JoinColumn(name = "id_order"),
-            inverseJoinColumns = @JoinColumn(name = "id_product")
-    )
-    private List<Product> products;
+        @ManyToOne
+        @JoinColumn(name = "id_user")
+        private User users;
+
+        @ManyToMany
+        @JoinTable(
+                name = "order_product",
+                joinColumns = @JoinColumn(name = "id_order"),
+                inverseJoinColumns = @JoinColumn(name = "id_product"))
+        private List<Product> products = new ArrayList<>();
 
 
-}
+    }
 

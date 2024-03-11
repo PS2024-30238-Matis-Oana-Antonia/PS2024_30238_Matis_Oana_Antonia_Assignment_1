@@ -13,7 +13,6 @@ public class ReviewMapper {
                 .id(review.getId())
                 .rating(review.getRating())
                 .comment(review.getComment())
-                .createdAt(review.getCreatedAt())
                 .build();
     }
 
@@ -21,7 +20,6 @@ public class ReviewMapper {
         return Review.builder()
                 .rating(reviewDTO.getRating())
                 .comment(reviewDTO.getComment())
-                .createdAt(reviewDTO.getCreatedAt())
                 .build();
     }
 }

@@ -20,7 +20,7 @@ public class UserDTO {
     private String email;
     private int age;
     private String role;
-    private List<ReviewDTO> reviews;
-    private List<OrderDTO> orders;
+    private List<Long> reviews;
+    private List<Long> orders;
 
 }

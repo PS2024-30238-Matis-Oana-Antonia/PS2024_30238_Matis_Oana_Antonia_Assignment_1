@@ -3,7 +3,11 @@ package com.example.carturestibackend.services;
 import com.example.carturestibackend.dtos.OrderDTO;
 import com.example.carturestibackend.dtos.mappers.OrderMapper;
 import com.example.carturestibackend.entities.Order;
+import com.example.carturestibackend.entities.Product;
+import com.example.carturestibackend.entities.User;
 import com.example.carturestibackend.repositories.OrderRepository;
+import com.example.carturestibackend.repositories.ProductRepository;
+import com.example.carturestibackend.repositories.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,15 +26,21 @@ public class OrderService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(OrderService.class);
     private final OrderRepository orderRepository;
+    private final UserRepository userRepository;
+    private final ProductRepository productRepository;
 
     /**
      * Constructs a new OrderService with the specified OrderRepository.
      *
-     * @param orderRepository The OrderRepository used to interact with order data in the database.
+     * @param orderRepository   The OrderRepository used to interact with order data in the database.
+     * @param userRepository
+     * @param productRepository
      */
     @Autowired
-    public OrderService(OrderRepository orderRepository) {
+    public OrderService(OrderRepository orderRepository, UserRepository userRepository, ProductRepository productRepository) {
         this.orderRepository = orderRepository;
+        this.userRepository = userRepository;
+        this.productRepository = productRepository;
     }
 
     /**
@@ -69,10 +79,15 @@ public class OrderService {
      */
     public long insert(OrderDTO orderDTO) {
         Order order = OrderMapper.fromOrderDTO(orderDTO);
+        Optional<User> user = userRepository.findById(orderDTO.getUser());
+        Optional<Product> product = productRepository.findById(orderDTO.getNbOfProducts());
+        order.setUsers(user.get());
+        order.setProducts((List<Product>) product.get());
         order = orderRepository.save(order);
         LOGGER.debug("Order with id {} was inserted in db", order.getId_order());
         return order.getId_order();
     }
+
 
     /**
      * Deletes an order from the database by its ID.

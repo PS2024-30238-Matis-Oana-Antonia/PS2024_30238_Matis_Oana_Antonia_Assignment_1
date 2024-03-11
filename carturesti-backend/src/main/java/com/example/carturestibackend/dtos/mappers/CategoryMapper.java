@@ -2,6 +2,10 @@ package com.example.carturestibackend.dtos.mappers;
 
 import com.example.carturestibackend.dtos.CategoryDTO;
 import com.example.carturestibackend.entities.Category;
+import com.example.carturestibackend.entities.Product;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class CategoryMapper {
 

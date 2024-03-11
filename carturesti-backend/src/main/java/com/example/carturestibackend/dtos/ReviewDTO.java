@@ -1,8 +1,10 @@
 package com.example.carturestibackend.dtos;
 
+import com.example.carturestibackend.entities.User;
 import lombok.*;
 
-import java.time.LocalDate;
+import java.util.Date;
+
 
 @Getter
 @Setter
@@ -12,9 +14,8 @@ import java.time.LocalDate;
 public class ReviewDTO {
 
     private Long id;
-    private UserDTO user;
-    private ProductDTO product;
     private int rating;
     private String comment;
-    private LocalDate createdAt;
+    private Long user;
+    private Long product;
 }

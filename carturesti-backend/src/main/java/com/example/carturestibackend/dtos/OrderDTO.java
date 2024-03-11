@@ -1,5 +1,6 @@
 package com.example.carturestibackend.dtos;
 
+import com.example.carturestibackend.entities.Product;
 import lombok.*;
 
 import java.util.List;
@@ -15,6 +16,6 @@ public class OrderDTO {
     private long id_order;
     private long nbOfProducts;
     private long total_price;
-    private UserDTO user;
-    private List<ProductDTO> products;
+    private Long user;
+    private List<Long> products;
 }

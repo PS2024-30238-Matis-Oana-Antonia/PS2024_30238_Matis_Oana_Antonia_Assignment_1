@@ -1,7 +1,13 @@
 package com.example.carturestibackend.dtos.mappers;
 
 import com.example.carturestibackend.dtos.ProductDTO;
+import com.example.carturestibackend.entities.Order;
 import com.example.carturestibackend.entities.Product;
+import com.example.carturestibackend.entities.Category;
+import com.example.carturestibackend.entities.Review;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ProductMapper {
 
@@ -28,5 +34,4 @@ public class ProductMapper {
                 .stock(productDTO.getStock())
                 .build();
     }
-
 }

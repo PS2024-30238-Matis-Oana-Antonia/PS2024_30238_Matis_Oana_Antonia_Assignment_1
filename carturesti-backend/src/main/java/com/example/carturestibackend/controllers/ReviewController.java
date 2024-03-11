@@ -1,7 +1,11 @@
 package com.example.carturestibackend.controllers;
 
+import com.example.carturestibackend.dtos.ProductDTO;
+import com.example.carturestibackend.dtos.UserDTO;
+import com.example.carturestibackend.services.ProductService;
 import com.example.carturestibackend.services.ReviewService;
 import com.example.carturestibackend.dtos.ReviewDTO;
+import com.example.carturestibackend.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,15 +22,21 @@ import java.util.List;
 public class ReviewController {
 
     private final ReviewService reviewService;
+    private final UserService userService;
+    private final ProductService productService;
 
     /**
      * Constructs a new ReviewController with the specified ReviewService.
      *
-     * @param reviewService The ReviewService used to handle review-related business logic.
+     * @param reviewService  The ReviewService used to handle review-related business logic.
+     * @param userService
+     * @param productService
      */
     @Autowired
-    public ReviewController(ReviewService reviewService) {
+    public ReviewController(ReviewService reviewService, UserService userService, ProductService productService) {
         this.reviewService = reviewService;
+        this.userService = userService;
+        this.productService = productService;
     }
 
     /**

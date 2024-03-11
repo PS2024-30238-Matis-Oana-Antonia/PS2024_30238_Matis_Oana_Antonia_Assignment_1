@@ -1,7 +1,13 @@
 package com.example.carturestibackend.dtos.mappers;
 
 import com.example.carturestibackend.dtos.OrderDTO;
+import com.example.carturestibackend.dtos.ProductDTO;
 import com.example.carturestibackend.entities.Order;
+import com.example.carturestibackend.entities.Product;
+import com.example.carturestibackend.entities.User;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class OrderMapper {
     private OrderMapper() {
@@ -20,5 +26,4 @@ public class OrderMapper {
                 .total_price(orderDTO.getTotal_price())
                 .build();
     }
-
 }
