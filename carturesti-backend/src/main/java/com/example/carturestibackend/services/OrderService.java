@@ -79,10 +79,10 @@ public class OrderService {
      */
     public long insert(OrderDTO orderDTO) {
         Order order = OrderMapper.fromOrderDTO(orderDTO);
-        Optional<User> user = userRepository.findById(orderDTO.getUser());
-        Optional<Product> product = productRepository.findById(orderDTO.getNbOfProducts());
-        order.setUsers(user.get());
-        order.setProducts((List<Product>) product.get());
+      //  Optional<User> user = userRepository.findById(orderDTO.getUser());
+      //  Optional<Product> product = productRepository.findById(orderDTO.getNbOfProducts());
+      //  order.setUsers(user.get());
+      //  order.setProducts((List<Product>) product.get());
         order = orderRepository.save(order);
         LOGGER.debug("Order with id {} was inserted in db", order.getId_order());
         return order.getId_order();
