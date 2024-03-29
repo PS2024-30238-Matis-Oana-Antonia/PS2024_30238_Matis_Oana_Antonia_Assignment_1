@@ -3,8 +3,6 @@ package com.example.carturestibackend.services;
 import com.example.carturestibackend.dtos.OrderDTO;
 import com.example.carturestibackend.dtos.mappers.OrderMapper;
 import com.example.carturestibackend.entities.Order;
-import com.example.carturestibackend.entities.Product;
-import com.example.carturestibackend.entities.User;
 import com.example.carturestibackend.repositories.OrderRepository;
 import com.example.carturestibackend.repositories.ProductRepository;
 import com.example.carturestibackend.repositories.UserRepository;
@@ -62,7 +60,7 @@ public class OrderService {
      * @return The OrderDTO object representing the retrieved order.
      * @throws ResourceNotFoundException if the order with the specified ID is not found.
      */
-    public OrderDTO findOrderById(long id) {
+    public OrderDTO findOrderById(String id) {
         Optional<Order> orderOptional = orderRepository.findById(id);
         if (!orderOptional.isPresent()) {
             LOGGER.error("Order with id {} was not found in db", id);
@@ -77,7 +75,7 @@ public class OrderService {
      * @param orderDTO The OrderDTO object representing the order to insert.
      * @return The ID of the newly inserted order.
      */
-    public long insert(OrderDTO orderDTO) {
+    public String insert(OrderDTO orderDTO) {
         Order order = OrderMapper.fromOrderDTO(orderDTO);
       //  Optional<User> user = userRepository.findById(orderDTO.getUser());
       //  Optional<Product> product = productRepository.findById(orderDTO.getNbOfProducts());
@@ -95,14 +93,17 @@ public class OrderService {
      * @param id The ID of the order to delete.
      * @throws ResourceNotFoundException if the order with the specified ID is not found.
      */
-    public void deleteOrderById(long id) {
+    public void deleteOrderById(String id) {
         Optional<Order> orderOptional = orderRepository.findById(id);
         if (orderOptional.isPresent()) {
             orderRepository.delete(orderOptional.get());
+            LOGGER.debug("Order with id {} was deleted from db", id);
         } else {
+            LOGGER.error("Order with id {} was not found in db", id);
             throw new ResourceNotFoundException(Order.class.getSimpleName() + " with id: " + id);
         }
     }
+
 
     /**
      * Updates an existing order in the database.
@@ -112,7 +113,7 @@ public class OrderService {
      * @return The updated OrderDTO object.
      * @throws ResourceNotFoundException if the order with the specified ID is not found.
      */
-    public OrderDTO updateOrder(long id, OrderDTO orderDTO) {
+    public OrderDTO updateOrder(String id, OrderDTO orderDTO) {
         Optional<Order> orderOptional = orderRepository.findById(id);
         if (!orderOptional.isPresent()) {
             LOGGER.error("Order with id {} was not found in db", id);
@@ -120,7 +121,7 @@ public class OrderService {
         }
 
         Order existingOrder = orderOptional.get();
-        existingOrder.setNbOfProducts(orderDTO.getNbOfProducts());
+        existingOrder.setOrder_date(orderDTO.getOrder_date());
         existingOrder.setTotal_price(orderDTO.getTotal_price());
 
         Order updatedOrder = orderRepository.save(existingOrder);

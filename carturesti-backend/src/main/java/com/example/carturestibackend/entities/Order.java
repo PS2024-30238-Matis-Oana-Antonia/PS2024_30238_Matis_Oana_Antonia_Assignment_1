@@ -1,11 +1,14 @@
 package com.example.carturestibackend.entities;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -20,25 +23,23 @@ import java.util.Set;
     public class Order {
 
         @Id
-        @GeneratedValue(strategy = GenerationType.IDENTITY)
-        private long id_order;
+        @GeneratedValue(generator = "uuid")
+        @GenericGenerator(name = "uuid", strategy = "org.hibernate.id.UUIDGenerator")
+        private String id_order;
 
-        @Column(name = "quantity", nullable = false)
-        private long nbOfProducts;
+        @Column(name = "order_date", nullable = false)
+        private LocalDate order_date;
 
         @Column(name = "total_price", nullable = false)
         private long total_price;
 
         @ManyToOne
         @JoinColumn(name = "id_user")
-        private User users;
+        private User user;
 
-        @ManyToMany
-        @JoinTable(
-                name = "order_product",
-                joinColumns = @JoinColumn(name = "id_order"),
-                inverseJoinColumns = @JoinColumn(name = "id_product"))
-        private List<Product> products = new ArrayList<>();
+        @OneToMany(mappedBy = "order", fetch = FetchType.EAGER)
+        @JsonIgnore
+        private List<OrderItem> orderItem;
 
 
     }

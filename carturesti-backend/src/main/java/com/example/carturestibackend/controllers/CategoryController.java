@@ -47,8 +47,8 @@ public class CategoryController {
      * @return A ResponseEntity containing the ID of the newly inserted category.
      */
     @PostMapping()
-    public ResponseEntity<Long> insertCategory(@Valid @RequestBody CategoryDTO categoryDTO) {
-        long categoryID = categoryService.insert(categoryDTO);
+    public ResponseEntity<String> insertCategory(@Valid @RequestBody CategoryDTO categoryDTO) {
+        String categoryID = categoryService.insert(categoryDTO);
         return new ResponseEntity<>(categoryID, HttpStatus.CREATED);
     }
 
@@ -59,7 +59,7 @@ public class CategoryController {
      * @return A ResponseEntity containing the CategoryDTO object representing the retrieved category.
      */
     @GetMapping(value = "/{id_category}")
-    public ResponseEntity<CategoryDTO> getCategory(@PathVariable("id_category") long categoryID) {
+    public ResponseEntity<CategoryDTO> getCategory(@PathVariable("id_category") String categoryID) {
         CategoryDTO dto = categoryService.findCategoryById(categoryID);
         return new ResponseEntity<>(dto, HttpStatus.OK);
     }
@@ -71,7 +71,7 @@ public class CategoryController {
      * @return A ResponseEntity indicating the success of the operation.
      */
     @DeleteMapping(value = "/{id_category}")
-    public ResponseEntity<String> deleteCategory(@PathVariable("id_category") long categoryID) {
+    public ResponseEntity<String> deleteCategory(@PathVariable("id_category") String categoryID) {
         categoryService.deleteCategoryById(categoryID);
         return new ResponseEntity<>("Category with ID " + categoryID + " deleted successfully", HttpStatus.OK);
     }
@@ -84,7 +84,7 @@ public class CategoryController {
      * @return A ResponseEntity containing the updated CategoryDTO object.
      */
     @PutMapping(value = "/{id_category}")
-    public ResponseEntity<CategoryDTO> updateCategory(@PathVariable("id_category") long categoryID, @Valid @RequestBody CategoryDTO categoryDTO) {
+    public ResponseEntity<CategoryDTO> updateCategory(@PathVariable("id_category") String categoryID, @Valid @RequestBody CategoryDTO categoryDTO) {
         CategoryDTO updatedCategory = categoryService.updateCategory(categoryID, categoryDTO);
         return new ResponseEntity<>(updatedCategory, HttpStatus.OK);
     }

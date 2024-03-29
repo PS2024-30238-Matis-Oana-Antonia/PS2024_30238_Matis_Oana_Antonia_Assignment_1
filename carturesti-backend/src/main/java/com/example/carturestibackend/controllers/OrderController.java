@@ -47,8 +47,8 @@ public class OrderController {
      * @return A ResponseEntity containing the ID of the newly inserted order.
      */
     @PostMapping()
-    public ResponseEntity<Long> insertOrder(@Valid @RequestBody OrderDTO orderDTO) {
-        long orderID = orderService.insert(orderDTO);
+    public ResponseEntity<String> insertOrder(@Valid @RequestBody OrderDTO orderDTO) {
+        String orderID = orderService.insert(orderDTO);
         return new ResponseEntity<>(orderID, HttpStatus.CREATED);
     }
 
@@ -59,7 +59,7 @@ public class OrderController {
      * @return A ResponseEntity containing the OrderDTO object representing the retrieved order.
      */
     @GetMapping(value = "/{id_order}")
-    public ResponseEntity<OrderDTO> getOrder(@PathVariable("id_order") long orderID) {
+    public ResponseEntity<OrderDTO> getOrder(@PathVariable("id_order") String orderID) {
         OrderDTO dto = orderService.findOrderById(orderID);
         return new ResponseEntity<>(dto, HttpStatus.OK);
     }
@@ -71,7 +71,7 @@ public class OrderController {
      * @return A ResponseEntity indicating the success of the operation.
      */
     @DeleteMapping(value = "/{id_order}")
-    public ResponseEntity<String> deleteOrder(@PathVariable("id_order") long orderID) {
+    public ResponseEntity<String> deleteOrder(@PathVariable("id_order") String orderID) {
         orderService.deleteOrderById(orderID);
         return new ResponseEntity<>("Order with ID " + orderID + " deleted successfully", HttpStatus.OK);
     }
@@ -84,7 +84,7 @@ public class OrderController {
      * @return A ResponseEntity containing the updated OrderDTO object.
      */
     @PutMapping(value = "/{id_order}")
-    public ResponseEntity<OrderDTO> updateOrder(@PathVariable("id_order") long orderID, @Valid @RequestBody OrderDTO orderDTO) {
+    public ResponseEntity<OrderDTO> updateOrder(@PathVariable("id_order") String orderID, @Valid @RequestBody OrderDTO orderDTO) {
         OrderDTO updatedOrder = orderService.updateOrder(orderID, orderDTO);
         return new ResponseEntity<>(updatedOrder, HttpStatus.OK);
     }

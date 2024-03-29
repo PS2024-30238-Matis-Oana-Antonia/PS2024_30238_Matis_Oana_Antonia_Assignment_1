@@ -3,6 +3,7 @@ package com.example.carturestibackend.services;
 import com.example.carturestibackend.dtos.ProductDTO;
 import com.example.carturestibackend.dtos.mappers.ProductMapper;
 import com.example.carturestibackend.entities.Product;
+import com.example.carturestibackend.repositories.CategoryRepository;
 import com.example.carturestibackend.repositories.ProductRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,15 +23,18 @@ public class ProductService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ProductService.class);
     private final ProductRepository productRepository;
+    private final CategoryRepository categoryRepository;
 
     /**
      * Constructs a new ProductService with the specified ProductRepository.
      *
-     * @param productRepository The ProductRepository used to interact with product data in the database.
+     * @param productRepository  The ProductRepository used to interact with product data in the database.
+     * @param categoryRepository
      */
     @Autowired
-    public ProductService(ProductRepository productRepository) {
+    public ProductService(ProductRepository productRepository, CategoryRepository categoryRepository) {
         this.productRepository = productRepository;
+        this.categoryRepository = categoryRepository;
     }
 
     /**
@@ -52,7 +56,7 @@ public class ProductService {
      * @return The ProductDTO object representing the retrieved product.
      * @throws ResourceNotFoundException if the product with the specified ID is not found.
      */
-    public ProductDTO findProductById(long id_product) {
+    public ProductDTO findProductById(String id_product) {
         Optional<Product> productOptional = productRepository.findById(id_product);
         if (!productOptional.isPresent()) {
             LOGGER.error("Product with id {} was not found in db", id_product);
@@ -67,12 +71,13 @@ public class ProductService {
      * @param productDTO The ProductDTO object representing the product to insert.
      * @return The ID of the newly inserted product.
      */
-    public long insert(ProductDTO productDTO) {
+    public String insert(ProductDTO productDTO) {
         Product product = ProductMapper.fromProductDTO(productDTO);
         product = productRepository.save(product);
         LOGGER.debug("Product with id {} was inserted in db", product.getId_product());
         return product.getId_product();
     }
+
 
     /**
      * Deletes a product from the database by its ID.
@@ -80,11 +85,13 @@ public class ProductService {
      * @param id_product The ID of the product to delete.
      * @throws ResourceNotFoundException if the product with the specified ID is not found.
      */
-    public void deleteProductById(long id_product) {
+    public void deleteProductById(String id_product) {
         Optional<Product> productOptional = productRepository.findById(id_product);
         if (productOptional.isPresent()) {
             productRepository.delete(productOptional.get());
+            LOGGER.debug("Product with id {} was deleted from db", id_product);
         } else {
+            LOGGER.error("Product with id {} was not found in db", id_product);
             throw new ResourceNotFoundException(Product.class.getSimpleName() + " with id: " + id_product);
         }
     }
@@ -97,7 +104,7 @@ public class ProductService {
      * @return The updated ProductDTO object.
      * @throws ResourceNotFoundException if the product with the specified ID is not found.
      */
-    public ProductDTO updateProduct(long id_product, ProductDTO productDTO) {
+    public ProductDTO updateProduct(String id_product, ProductDTO productDTO) {
         Optional<Product> productOptional = productRepository.findById(id_product);
         if (!productOptional.isPresent()) {
             LOGGER.error("Product with id {} was not found in db", id_product);

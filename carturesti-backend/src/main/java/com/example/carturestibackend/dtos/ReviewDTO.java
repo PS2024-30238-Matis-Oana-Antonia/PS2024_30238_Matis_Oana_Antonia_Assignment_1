@@ -1,5 +1,6 @@
 package com.example.carturestibackend.dtos;
 
+import com.example.carturestibackend.entities.Product;
 import com.example.carturestibackend.entities.User;
 import lombok.*;
 
@@ -13,9 +14,9 @@ import java.util.Date;
 @Builder
 public class ReviewDTO {
 
-    private Long id;
+    private String id;
     private int rating;
     private String comment;
-    private Long user;
-    private Long product;
+    private User user;
+    private Product product;
 }

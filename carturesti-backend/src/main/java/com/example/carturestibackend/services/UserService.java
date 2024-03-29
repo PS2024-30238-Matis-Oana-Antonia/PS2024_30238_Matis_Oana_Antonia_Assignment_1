@@ -2,7 +2,6 @@ package com.example.carturestibackend.services;
 
 import com.example.carturestibackend.dtos.UserDTO;
 import com.example.carturestibackend.dtos.mappers.UserMapper;
-import com.example.carturestibackend.entities.Order;
 import com.example.carturestibackend.entities.User;
 import com.example.carturestibackend.repositories.OrderRepository;
 import com.example.carturestibackend.repositories.UserRepository;
@@ -57,7 +56,7 @@ public class UserService {
      * @return The UserDTO object representing the retrieved user.
      * @throws ResourceNotFoundException if the user with the specified ID is not found.
      */
-    public UserDTO findUserById(long id_user) {
+    public UserDTO findUserById(String id_user) {
         Optional<User> userOptional = userRepository.findById(id_user);
         if (!userOptional.isPresent()) {
             LOGGER.error("User with id {} was not found in db", id_user);
@@ -104,7 +103,7 @@ public class UserService {
      * @param userDTO The UserDTO object representing the user to insert.
      * @return The ID of the newly inserted user.
      */
-    public long insert(UserDTO userDTO) {
+    public String insert(UserDTO userDTO) {
         User user = UserMapper.fromUserDTO(userDTO);
         user = userRepository.save(user);
         LOGGER.debug("User with id {} was inserted in db", user.getId_user());
@@ -118,11 +117,13 @@ public class UserService {
      * @param id_user The ID of the user to delete.
      * @throws ResourceNotFoundException if the user with the specified ID is not found.
      */
-    public void deleteUserById(long id_user) {
+    public void deleteUserById(String id_user) {
         Optional<User> userOptional = userRepository.findById(id_user);
         if (userOptional.isPresent()) {
             userRepository.delete(userOptional.get());
+            LOGGER.debug("User with id {} was deleted from db", id_user);
         } else {
+            LOGGER.error("User with id {} was not found in db", id_user);
             throw new ResourceNotFoundException(User.class.getSimpleName() + " with id: " + id_user);
         }
     }
@@ -135,7 +136,7 @@ public class UserService {
      * @return The updated UserDTO object.
      * @throws ResourceNotFoundException if the user with the specified ID is not found.
      */
-    public UserDTO updateUser(long id_user, UserDTO userDTO) {
+    public UserDTO updateUser(String id_user, UserDTO userDTO) {
         Optional<User> userOptional = userRepository.findById(id_user);
         if (!userOptional.isPresent()) {
             LOGGER.error("User with id {} was not found in db", id_user);
@@ -147,6 +148,7 @@ public class UserService {
         existingUser.setAge(userDTO.getAge());
         existingUser.setAddress(userDTO.getAddress());
         existingUser.setEmail(userDTO.getEmail());
+        existingUser.setPassword(userDTO.getPassword());
         existingUser.setRole(userDTO.getRole());
 
         User updatedUser = userRepository.save(existingUser);

@@ -51,7 +51,7 @@ public class CategoryService {
      * @return The CategoryDTO object representing the retrieved category.
      * @throws ResourceNotFoundException if the category with the specified ID is not found.
      */
-    public CategoryDTO findCategoryById(long id_category) {
+    public CategoryDTO findCategoryById(String id_category) {
         Optional<Category> categoryOptional = categoryRepository.findById(id_category);
         if (!categoryOptional.isPresent()) {
             LOGGER.error("Category with id {} was not found in db", id_category);
@@ -66,7 +66,7 @@ public class CategoryService {
      * @param categoryDTO The CategoryDTO object representing the category to insert.
      * @return The ID of the newly inserted category.
      */
-    public long insert(CategoryDTO categoryDTO) {
+    public String insert(CategoryDTO categoryDTO) {
         Category category = CategoryMapper.fromCategoryDTO(categoryDTO);
         category = categoryRepository.save(category);
         LOGGER.debug("Category with id {} was inserted in db", category.getId_category());
@@ -79,11 +79,13 @@ public class CategoryService {
      * @param id_category The ID of the category to delete.
      * @throws ResourceNotFoundException if the category with the specified ID is not found.
      */
-    public void deleteCategoryById(long id_category) {
+    public void deleteCategoryById(String id_category) {
         Optional<Category> categoryOptional = categoryRepository.findById(id_category);
         if (categoryOptional.isPresent()) {
             categoryRepository.delete(categoryOptional.get());
+            LOGGER.debug("Category with id {} was deleted from db", id_category);
         } else {
+            LOGGER.error("Category with id {} was not found in db", id_category);
             throw new ResourceNotFoundException(Category.class.getSimpleName() + " with id: " + id_category);
         }
     }
@@ -96,7 +98,7 @@ public class CategoryService {
      * @return The updated CategoryDTO object.
      * @throws ResourceNotFoundException if the category with the specified ID is not found.
      */
-    public CategoryDTO updateCategory(long id_category, CategoryDTO categoryDTO) {
+    public CategoryDTO updateCategory(String id_category, CategoryDTO categoryDTO) {
         Optional<Category> categoryOptional = categoryRepository.findById(id_category);
         if (!categoryOptional.isPresent()) {
             LOGGER.error("Category with id {} was not found in db", id_category);

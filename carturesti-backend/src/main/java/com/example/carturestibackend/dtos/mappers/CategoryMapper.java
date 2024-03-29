@@ -14,6 +14,7 @@ public class CategoryMapper {
                 .id_category(category.getId_category())
                 .name(category.getName())
                 .description(category.getDescription())
+                .products(category.getProducts())
                 .build();
     }
 
@@ -22,6 +23,7 @@ public class CategoryMapper {
                 .id_category(categoryDTO.getId_category())
                 .name(categoryDTO.getName())
                 .description(categoryDTO.getDescription())
+                .products(categoryDTO.getProducts())
                 .build();
     }
 }

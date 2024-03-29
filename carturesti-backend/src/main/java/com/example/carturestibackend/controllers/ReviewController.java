@@ -57,8 +57,8 @@ public class ReviewController {
      * @return A ResponseEntity containing the ID of the newly inserted review.
      */
     @PostMapping()
-    public ResponseEntity<Long> insert(@Valid @RequestBody ReviewDTO reviewDTO) {
-        long reviewID = reviewService.insert(reviewDTO);
+    public ResponseEntity<String> insert(@Valid @RequestBody ReviewDTO reviewDTO) {
+        String reviewID = reviewService.insert(reviewDTO);
         return new ResponseEntity<>(reviewID, HttpStatus.CREATED);
     }
 
@@ -69,7 +69,7 @@ public class ReviewController {
      * @return A ResponseEntity containing the ReviewDTO object representing the retrieved review.
      */
     @GetMapping(value = "/{id_review}")
-    public ResponseEntity<ReviewDTO> getReview(@PathVariable("id_review") long reviewID) {
+    public ResponseEntity<ReviewDTO> getReview(@PathVariable("id_review") String reviewID) {
         ReviewDTO dto = reviewService.findReviewById(reviewID);
         return new ResponseEntity<>(dto, HttpStatus.OK);
     }
@@ -81,7 +81,7 @@ public class ReviewController {
      * @return A ResponseEntity indicating the success of the operation.
      */
     @DeleteMapping(value = "/{id_review}")
-    public ResponseEntity<String> deleteReview(@PathVariable("id_review") long reviewID) {
+    public ResponseEntity<String> deleteReview(@PathVariable("id_review") String reviewID) {
         reviewService.deleteReviewById(reviewID);
         return new ResponseEntity<>("Review with ID " + reviewID + " deleted successfully", HttpStatus.OK);
     }
@@ -94,7 +94,7 @@ public class ReviewController {
      * @return A ResponseEntity containing the updated ReviewDTO object.
      */
     @PutMapping(value = "/{id_review}")
-    public ResponseEntity<ReviewDTO> updateReview(@PathVariable("id_review") long reviewID, @Valid @RequestBody ReviewDTO reviewDTO) {
+    public ResponseEntity<ReviewDTO> updateReview(@PathVariable("id_review") String reviewID, @Valid @RequestBody ReviewDTO reviewDTO) {
         ReviewDTO updatedReview = reviewService.updateReview(reviewID, reviewDTO);
         return new ResponseEntity<>(updatedReview, HttpStatus.OK);
     }

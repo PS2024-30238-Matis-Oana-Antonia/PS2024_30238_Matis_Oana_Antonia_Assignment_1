@@ -1,5 +1,6 @@
 package com.example.carturestibackend.dtos;
 
+import com.example.carturestibackend.entities.Product;
 import lombok.*;
 
 import java.util.List;
@@ -11,9 +12,9 @@ import java.util.List;
 @Builder
 public class CategoryDTO {
 
-    private long id_category;
+    private String id_category;
     private String name;
     private String description;
-    private List<Long> products;
+    private List<Product> products;
 
 }

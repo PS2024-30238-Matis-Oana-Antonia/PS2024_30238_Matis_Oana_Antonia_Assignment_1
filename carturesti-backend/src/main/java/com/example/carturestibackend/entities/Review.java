@@ -2,8 +2,7 @@ package com.example.carturestibackend.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
-import java.util.Date;
-import java.util.Set;
+import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Table(name="reviewdb")
@@ -16,8 +15,9 @@ import java.util.Set;
 public class Review {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(generator = "uuid")
+    @GenericGenerator(name = "uuid", strategy = "org.hibernate.id.UUIDGenerator")
+    private String id;
 
     @Column(name = "rating", nullable = false)
     private int rating;
@@ -32,6 +32,5 @@ public class Review {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "product_id")
     private Product product;
-
 
 }

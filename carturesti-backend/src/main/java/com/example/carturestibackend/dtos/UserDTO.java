@@ -14,13 +14,14 @@ import java.util.Set;
 @Builder
 public class UserDTO {
 
-    private long id_user;
+    private String id_user;
     private String name;
     private String address;
     private String email;
+    private String password;
     private int age;
     private String role;
-    private List<Long> reviews;
-    private List<Long> orders;
+    private List<Review> reviews;
+    private List<Order> orders;
 
 }

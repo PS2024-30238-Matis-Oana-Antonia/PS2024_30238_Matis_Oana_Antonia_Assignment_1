@@ -1,7 +1,12 @@
 package com.example.carturestibackend.dtos.mappers;
 
 import com.example.carturestibackend.dtos.ReviewDTO;
+import com.example.carturestibackend.entities.Product;
 import com.example.carturestibackend.entities.Review;
+import com.example.carturestibackend.entities.User;
+
+import static com.example.carturestibackend.dtos.mappers.UserMapper.toUserDTO;
+import static com.example.carturestibackend.dtos.mappers.UserMapper.fromUserDTO;
 
 public class ReviewMapper {
 
@@ -13,6 +18,8 @@ public class ReviewMapper {
                 .id(review.getId())
                 .rating(review.getRating())
                 .comment(review.getComment())
+                .user(review.getUser())
+                .product(review.getProduct())
                 .build();
     }
 
@@ -20,6 +27,8 @@ public class ReviewMapper {
         return Review.builder()
                 .rating(reviewDTO.getRating())
                 .comment(reviewDTO.getComment())
+                .user(reviewDTO.getUser())
+                .product(reviewDTO.getProduct())
                 .build();
     }
 }

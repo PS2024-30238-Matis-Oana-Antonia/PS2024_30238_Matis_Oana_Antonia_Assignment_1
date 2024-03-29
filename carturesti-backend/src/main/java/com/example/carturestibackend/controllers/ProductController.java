@@ -47,8 +47,8 @@ public class ProductController {
      * @return A ResponseEntity containing the ID of the newly inserted product.
      */
     @PostMapping()
-    public ResponseEntity<Long> insertProduct(@Valid @RequestBody ProductDTO productDTO) {
-        long productID = productService.insert(productDTO);
+    public ResponseEntity<String> insertProduct(@Valid @RequestBody ProductDTO productDTO) {
+        String productID = productService.insert(productDTO);
         return new ResponseEntity<>(productID, HttpStatus.CREATED);
     }
 
@@ -59,7 +59,7 @@ public class ProductController {
      * @return A ResponseEntity containing the ProductDTO object representing the retrieved product.
      */
     @GetMapping(value = "/{id_product}")
-    public ResponseEntity<ProductDTO> getProduct(@PathVariable("id_product") long productID) {
+    public ResponseEntity<ProductDTO> getProduct(@PathVariable("id_product") String productID) {
         ProductDTO dto = productService.findProductById(productID);
         return new ResponseEntity<>(dto, HttpStatus.OK);
     }
@@ -71,7 +71,7 @@ public class ProductController {
      * @return A ResponseEntity indicating the success of the operation.
      */
     @DeleteMapping(value = "/{id_product}")
-    public ResponseEntity<String> deleteProduct(@PathVariable("id_product") long productID) {
+    public ResponseEntity<String> deleteProduct(@PathVariable("id_product") String productID) {
         productService.deleteProductById(productID);
         return new ResponseEntity<>("Product with ID " + productID + " deleted successfully", HttpStatus.OK);
     }
@@ -84,7 +84,7 @@ public class ProductController {
      * @return A ResponseEntity containing the updated ProductDTO object.
      */
     @PutMapping(value = "/{id_product}")
-    public ResponseEntity<ProductDTO> updateProduct(@PathVariable("id_product") long productID, @Valid @RequestBody ProductDTO productDTO) {
+    public ResponseEntity<ProductDTO> updateProduct(@PathVariable("id_product") String productID, @Valid @RequestBody ProductDTO productDTO) {
         ProductDTO updatedProduct = productService.updateProduct(productID, productDTO);
         return new ResponseEntity<>(updatedProduct, HttpStatus.OK);
     }

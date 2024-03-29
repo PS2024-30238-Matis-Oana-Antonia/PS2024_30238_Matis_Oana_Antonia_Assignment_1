@@ -22,6 +22,10 @@ public class ProductMapper {
                 .description(product.getDescription())
                 .author(product.getAuthor())
                 .stock(product.getStock())
+                .reviews(product.getReviews())
+                .category(product.getCategory())
+                .orderItems(product.getOrderItems())
+                .promotion(product.getPromotion())
                 .build();
     }
 
@@ -32,6 +36,10 @@ public class ProductMapper {
                 .description(productDTO.getDescription())
                 .author(productDTO.getAuthor())
                 .stock(productDTO.getStock())
+                .reviews(productDTO.getReviews())
+                .category(productDTO.getCategory())
+                .orderItems(productDTO.getOrderItems())
+                .promotion(productDTO.getPromotion())
                 .build();
     }
 }

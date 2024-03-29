@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: beige; /* Added beige background color */
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex; /* Use flexbox for layout */
+        }
+
+        .left-container,
+        .center-container,
+        .right-container {
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin: 20px;
+        }
+
+        .left-container,
+        .right-container {
+            flex: 1; /* Both left and right containers will take equal space */
+            background-color: #f5deb3; /* Very light brown background color */
+        }
+
+        .center-container {
+            flex: 3; /* Center container will take more space */
+            background-color: #fff; /* White background color */
+            display: flex; /* Use flexbox for center content alignment */
+            flex-direction: column; /* Align content vertically */
+            justify-content: center; /* Center content vertically */
+            align-items: center; /* Center content horizontally */
+        }
+
+        .title-container {
+            width: 100%; /* Set width to 100% */
+            text-align: center;
+            margin-bottom: 20px;
+            border: 2px solid #a52a2a; /* Added light brown border color */
+            padding: 10px; /* Added padding */
+            border-radius: 5px; /* Added border radius */
+            background-color: #f5deb3; /* Very light brown background color */
+        }
+
+        h1 {
+            color: #555;
+            margin: 0;
+        }
+
+        .navbar {
+            width: 100%; /* Set width to 100% */
+            background-color: #8B4513; /* Brown background color for the navbar */
+            padding: 10px 0;
+            text-align: center;
+        }
+
+        .navbar ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .navbar .menu {
+            /* Added separate class for the dropdown menu */
+            display: none;
+            position: absolute;
+            background-color: #8B4513; /* Brown background color */
+            border-radius: 5px;
+            padding: 10px;
+        }
+
+        .navbar li {
+            display: inline;
+            position: relative; /* Added relative positioning for dropdown menu */
+            margin-right: 20px;
+        }
+
+        .navbar li:hover .menu {
+            display: block;
+        }
+
+        .navbar li a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 18px;
+        }
+
+        select {
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            margin-top: 20px;
+            width: 100%;
+            box-sizing: border-box; /* Include padding in width */
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+            width: 100%;
+        }
+
+        .books-image {
+            margin-top: 20px;
+            width: 100%; /* Adjusted image width */
+            height: auto; /* Maintain aspect ratio */
+        }
+
+        .left-image, .right-image {
+            width: 100%; /* Adjusted image width */
+            height: auto; /* Maintain aspect ratio */
+        }
+        .top-container {
+            position: absolute; /* or position: absolute; depending on your preference */
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: #333; /* Dark background color for the container */
+            padding: 3px 0; /* Added padding */
+            z-index: 1000; /* Ensure it's on top of other elements */
+        }
+
+        .social-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .social-icon {
+            color: white; /* Set icon color */
+            text-decoration: none; /* Remove underline */
+            margin: 0 10px; /* Add spacing between icons */
+        }
+
+
+    </style>
+</head>
+<body>
+<div class="top-container">
+    <div class="social-container">
+        <a href="#" class="social-icon">&#127775; Instagram</a>
+        <a href="#" class="social-icon">&#128172; Facebook</a>
+    </div>
+</div>
+
+<div class="left-container">
+    <img src="/images/book1.jpg" alt="Right Image" class="right-image">
+</div>
+<div class="center-container">
+    <div class="title-container">
+        <h1><span class="book-icon">&#128214;</span>Welcome to Cărturești!<span class="book-icon">&#128214;</span></h1>
+    </div>
+    <div class="navbar">
+        <ul>
+            <li><a href="#">&#128269; Search</a></li>
+            <li><a href="#">&#x1F496; Favorite</a></li>
+            <li><a href="#">&#128722; Cart</a></li>
+            <li><a href="#">&#128274; Login</a></li>
+            <li class="dropdown">
+                <a href="#" class="dropbtn">&#9776; Menu</a>
+                <div class="menu">
+                    <a href="#">Link 1</a>
+                    <a href="#">Link 2</a>
+                    <a href="#">Link 3</a>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <div class = "center-container">
+    <div class="container">
+        <p>Hello! Please select whether you are a client or an admin:</p>
+        <select>
+            <option value="Client">&#128100; Client</option>
+            <option value="Admin">&#128101; Admin</option>
+        </select>
+        <button>Submit</button>
+    </div>
+    </div>
+    <div class="center-container">
+        <img src="/images/bookshop.jpg" alt="Books" class="books-image">
+    </div>
+</div>
+<div class="right-container">
+    <img src="/images/book2.jpg" alt="Right Image" class="right-image">
+</div>
+</body>
+</html>

@@ -47,8 +47,8 @@ public class UserController {
      * @return A ResponseEntity containing the ID of the newly inserted user.
      */
     @PostMapping()
-    public ResponseEntity<Long> insertUser(@Valid @RequestBody UserDTO userDTO) {
-        long userID = userService.insert(userDTO);
+    public ResponseEntity<String> insertUser(@Valid @RequestBody UserDTO userDTO) {
+        String userID = userService.insert(userDTO);
         return new ResponseEntity<>(userID, HttpStatus.CREATED);
     }
 
@@ -59,7 +59,7 @@ public class UserController {
      * @return A ResponseEntity containing the UserDTO object representing the retrieved user.
      */
     @GetMapping(value = "/{id_user}")
-    public ResponseEntity<UserDTO> getUser(@PathVariable("id_user") long userID) {
+    public ResponseEntity<UserDTO> getUser(@PathVariable("id_user") String userID) {
         UserDTO dto = userService.findUserById(userID);
         return new ResponseEntity<>(dto, HttpStatus.OK);
     }
@@ -95,7 +95,7 @@ public class UserController {
      * @return A ResponseEntity indicating the success of the operation.
      */
     @DeleteMapping(value = "/{id_user}")
-    public ResponseEntity<String> deleteUser(@PathVariable("id_user") long userID) {
+    public ResponseEntity<String> deleteUser(@PathVariable("id_user") String userID) {
         userService.deleteUserById(userID);
         return new ResponseEntity<>("User with ID " + userID + " deleted successfully", HttpStatus.OK);
     }
@@ -109,7 +109,7 @@ public class UserController {
      */
     @PutMapping(value = "/{id_user}")
     public ResponseEntity<UserDTO> updateUser(@PathVariable("id_user") String userID, @Valid @RequestBody UserDTO userDTO) {
-        UserDTO updatedUser = userService.updateUser(Long.parseLong(userID), userDTO);
+        UserDTO updatedUser = userService.updateUser(userID, userDTO);
         return new ResponseEntity<>(updatedUser, HttpStatus.OK);
     }
 }

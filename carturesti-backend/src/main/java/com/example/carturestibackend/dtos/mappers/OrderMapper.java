@@ -15,15 +15,21 @@ public class OrderMapper {
     public static OrderDTO toOrderDTO(Order order) {
         return OrderDTO.builder()
                 .id_order(order.getId_order())
-                .nbOfProducts(order.getNbOfProducts())
+                .order_date(order.getOrder_date())
                 .total_price(order.getTotal_price())
+                .id_user(order.getUser().getId_user())
+                .orderItems(order.getOrderItem())
                 .build();
     }
 
     public static Order fromOrderDTO(OrderDTO orderDTO) {
         return Order.builder()
-                .nbOfProducts(orderDTO.getNbOfProducts())
+                .order_date(orderDTO.getOrder_date())
                 .total_price(orderDTO.getTotal_price())
+                .user(User.builder()
+                        .id_user(orderDTO.getId_user())
+                        .build())
+                .orderItem(orderDTO.getOrderItems())
                 .build();
     }
 }

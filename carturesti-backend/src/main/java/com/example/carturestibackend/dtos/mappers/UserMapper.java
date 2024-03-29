@@ -1,14 +1,7 @@
 package com.example.carturestibackend.dtos.mappers;
 
-import com.example.carturestibackend.dtos.OrderDTO;
-import com.example.carturestibackend.dtos.ReviewDTO;
 import com.example.carturestibackend.dtos.UserDTO;
-import com.example.carturestibackend.entities.Order;
-import com.example.carturestibackend.entities.Review;
 import com.example.carturestibackend.entities.User;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class UserMapper {
 
@@ -22,8 +15,11 @@ public class UserMapper {
                 .name(user.getName())
                 .address(user.getAddress())
                 .email(user.getEmail())
+                .password(user.getPassword())
                 .age(user.getAge())
                 .role(user.getRole())
+                .reviews(user.getReviews())
+                .orders(user.getOrders())
                 .build();
     }
 
@@ -33,8 +29,11 @@ public class UserMapper {
                 .name(userDto.getName())
                 .address(userDto.getAddress())
                 .email(userDto.getEmail())
+                .password(userDto.getPassword())
                 .age(userDto.getAge())
                 .role(userDto.getRole())
+                .reviews(userDto.getReviews())
+                .orders(userDto.getOrders())
                 .build();
     }
 }
